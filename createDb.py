@@ -24,7 +24,7 @@ c = db.cursor()
 # c.execute("CREATE TABLE IF NOT EXISTS itemDetails(itemNumber INTEGER PRIMARY KEY, itemName TEXT)")
 
 # #creating orders table
-# c.execute("CREATE TABLE IF NOT EXISTS orderDetails(orderId INTEGER PRIMARY KEY, custId TEXT, itemNumber INTEGER, "
+# c.execute("CREATE TABLE IF NOT EXISTS orderDetails(orderId INTEGER PRIMARY KEY, custId INTEGER, itemNumber INTEGER, "
 #           "amountPaid INTEGER, amountDue INTEGER, totalAmount INTEGER,"
 #           "FOREIGN KEY(custId) REFERENCES customer(custId), FOREIGN KEY(itemNumber) REFERENCES itemDetails(itemNumber))")
 
