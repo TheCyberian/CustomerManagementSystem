@@ -59,13 +59,20 @@ def addOrder():
     return jsonify(order)
 
 
+@app.route("/getCustomer")
 def getCustomers():
-    pass
+    query = "SELECT * FROM customer"
+    c.execute(query)
+    rows = c.fetchall()
+    return jsonify(rows)
 
 
+@app.route("/getCustomer/<int:custId>")
 def getCustomer(custId):
-    pass
-
+    query = "SELECT * FROM customer where custId = {}".format(custId)
+    c.execute(query)
+    rows = c.fetchall()
+    return jsonify(rows)
 
 def getItems():
     pass

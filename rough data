@@ -1,10 +1,25 @@
+-:-Front-End-:-
+4 activities
+add customer
+add order
+find customer
+find order
+
 -:-EndPoints-:-
 http://127.0.0.1:5000/addCustomer
 http://127.0.0.1:5000/addItem
+http://127.0.0.1:5000/addOrder
+http://127.0.0.1:5000/getCustomer
+http://127.0.0.1:5000/getCustomer/<customerId>
+http://127.0.0.1:5000/getItems
+http://127.0.0.1:5000/getItems/<number>
+http://127.0.0.1:5000/getCustomerOrder/<customerId>
+http://127.0.0.1:5000/getItemOrders/<number>
 -:-         -:-
 
 Add customer request body format:
-{"name": "Raghav",
+{
+ "name": "Raghav",
  "initial" : "Mr",
  "address1": "addressLine1",
  "address2": "addressLine2",
@@ -12,24 +27,18 @@ Add customer request body format:
  "pincode": "pincode",
  "phone1": "phone12",
  "phone2": "phone21",
- "email": "email"}
+ "email": "email"
+ }
 
 Add Item request body format:
 {"itemName": "Item Name here"}
 
 Add order:
-{"custId": 2, 
+{
+"custId": 2,
  "itemNumber": 4, 
  "amountPaid": 100, 
  "amountDue": 50, 
- "totalAmount": 150} 
-
-
-@app.route("/")
-def test():
-    c.execute(
-        "SELECT * FROM orderDetails JOIN itemDetails WHERE orderDetails.itemNumber =  itemDetails.itemNumber and itemDetails.itemNumber = 2")
-    rows = c.fetchall()
-    print(rows)
-    return jsonify(rows)
+ "totalAmount": 150
+ }
 
