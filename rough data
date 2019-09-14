@@ -1,0 +1,35 @@
+-:-EndPoints-:-
+http://127.0.0.1:5000/addCustomer
+http://127.0.0.1:5000/addItem
+-:-         -:-
+
+Add customer request body format:
+{"name": "Raghav",
+ "initial" : "Mr",
+ "address1": "addressLine1",
+ "address2": "addressLine2",
+ "address3": "addressLine3",
+ "pincode": "pincode",
+ "phone1": "phone12",
+ "phone2": "phone21",
+ "email": "email"}
+
+Add Item request body format:
+{"itemName": "Item Name here"}
+
+Add order:
+{"custId": 2, 
+ "itemNumber": 4, 
+ "amountPaid": 100, 
+ "amountDue": 50, 
+ "totalAmount": 150} 
+
+
+@app.route("/")
+def test():
+    c.execute(
+        "SELECT * FROM orderDetails JOIN itemDetails WHERE orderDetails.itemNumber =  itemDetails.itemNumber and itemDetails.itemNumber = 2")
+    rows = c.fetchall()
+    print(rows)
+    return jsonify(rows)
+
