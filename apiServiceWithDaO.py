@@ -24,7 +24,7 @@ def addCustomer():
 
     statusCode = db_obj.addCustomerToDb(customer)
     if statusCode == 1:
-        return jsonify(customer)
+        return jsonify(customer), 201
     else:
         return abort(404)
 
@@ -34,7 +34,7 @@ def addItem():
     item = {'itemName': request.json['itemName']}
     statusCode = db_obj.addItemToDb(item)
     if statusCode == 1:
-        return jsonify(item)
+        return jsonify(item), 201
     else:
         return abort(404)
 
@@ -51,7 +51,7 @@ def addOrder():
 
     statusCode = db_obj.addOrderToDb(order)
     if statusCode == 1:
-        return jsonify(order)
+        return jsonify(order), 201
     else:
         return abort(404)
 
