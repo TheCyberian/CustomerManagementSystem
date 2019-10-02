@@ -65,7 +65,7 @@ def getCustomers():
         return jsonify(rows)
 
 
-@app.route("/getCustomer/<int:custId>")
+@app.route("/getCustomer/<string:custId>")
 def getCustomer(custId):
     rows = db_obj.getCustomersFromDb(custId)
     if not rows or rows == 0:
@@ -104,6 +104,15 @@ def getCustomerOrders(custId):
 @app.route("/getItemOrders/<int:itemId>")
 def getItemOrders(itemId):
     rows = db_obj.getItemOrders(itemId)
+    if not rows or rows == 0:
+        return abort(404)
+    else:
+        return jsonify(rows)
+
+
+@app.route("/getOrder/<int:orderId>")
+def getOrder(orderId):
+    rows = db_obj.getOrderDetails(orderId)
     if not rows or rows == 0:
         return abort(404)
     else:

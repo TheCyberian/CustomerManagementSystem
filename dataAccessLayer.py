@@ -40,9 +40,10 @@ class DataAccessLayer:
         except sqlite3.Error:
             return 0
 
-    def getCustomersFromDb(self, custId=-1):
-        if custId == -1:
+    def getCustomersFromDb(self, phone1=-1):
+        if phone1 == -1:
             query = "SELECT * FROM customer"
+            print(query)
             try:
                 self.c.execute(query)
                 rows = self.c.fetchall()
@@ -50,11 +51,13 @@ class DataAccessLayer:
             except sqlite3.Error:
                 return 0
         else:
-            query = "SELECT * FROM customer where custId = {}".format(custId)
+            query = "SELECT * FROM customer where phone1 = '{}' OR phone2 = '{}' OR name = '{}'".format(phone1, phone1,
+                                                                                                        phone1)
+            print(query)
             self.c.execute(query)
             try:
                 self.c.execute(query)
-                rows = self.c.fetchone()
+                rows = self.c.fetchall()
                 return rows
             except sqlite3.Error:
                 return 0
@@ -79,7 +82,8 @@ class DataAccessLayer:
                 return 0
 
     def getCustomerOrders(self, custId):
-        query = "SELECT * FROM orderDetails WHERE custId = {}".format(custId)
+        query = "SELECT orderId, itemName, amountDue, amountPaid, totalAmount FROM orderDetails, itemDetails WHERE " \
+                "custId = {} AND orderDetails.itemNumber = itemDetails.itemNumber".format(custId)
         try:
             self.c.execute(query)
             rows = self.c.fetchall()
@@ -89,6 +93,16 @@ class DataAccessLayer:
 
     def getItemOrders(self, itemId):
         query = "SELECT * FROM orderDetails WHERE itemNumber = {}".format(itemId)
+        try:
+            self.c.execute(query)
+            rows = self.c.fetchall()
+            return rows
+        except sqlite3.Error:
+            return 0
+
+    def getOrderDetails(self, orderId):
+        query = "SELECT orderId, itemName, weight, amountPaid, totalAmount FROM orderDetails, itemDetails WHERE " \
+                "orderId = {} AND orderDetails.itemNumber = itemDetails.itemNumber".format(orderId)
         try:
             self.c.execute(query)
             rows = self.c.fetchall()
