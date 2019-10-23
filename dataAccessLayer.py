@@ -82,7 +82,7 @@ class DataAccessLayer:
                 return 0
 
     def getCustomerOrders(self, custId):
-        query = "SELECT orderId, itemName, amountDue, amountPaid, totalAmount FROM orderDetails, itemDetails WHERE " \
+        query = "SELECT orderId, itemName, weight, amountPaid, totalAmount FROM orderDetails, itemDetails WHERE " \
                 "custId = {} AND orderDetails.itemNumber = itemDetails.itemNumber".format(custId)
         try:
             self.c.execute(query)
