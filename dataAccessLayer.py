@@ -51,7 +51,7 @@ class DataAccessLayer:
             except sqlite3.Error:
                 return 0
         else:
-            query = "SELECT * FROM customer where phone1 = '{}' OR phone2 = '{}' OR name = '{}'".format(phone1, phone1,
+            query = "SELECT * FROM customer where phone1 like '{}%' OR phone2 like '{}%' OR name like '{}%'".format(phone1, phone1,
                                                                                                         phone1)
             print(query)
             self.c.execute(query)
