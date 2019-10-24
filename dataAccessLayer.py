@@ -29,10 +29,10 @@ class DataAccessLayer:
             return 0
 
     def addOrderToDb(self, order):
-        insert_query = "INSERT INTO orderDetails(custId, itemNumber, amountPaid, amountDue, totalAmount)" \
+        insert_query = "INSERT INTO orderDetails(custId, itemNumber, amountPaid, weight, totalAmount)" \
                        " VALUES ('{}', '{}', '{}', '{}', '{}' )". \
             format(order['custId'], order['itemNumber'], order['amountPaid']
-                   , order['amountDue'], order['totalAmount'])
+                   , order['weight'], order['totalAmount'])
         try:
             self.c.execute(insert_query)
             self.connection.commit()
@@ -106,6 +106,16 @@ class DataAccessLayer:
         try:
             self.c.execute(query)
             rows = self.c.fetchall()
+            return rows
+        except sqlite3.Error:
+            return 0
+
+    def getCustomerData(self, name, phone):
+        query = "SELECT custId FROM customer WHERE " \
+                "name = {} AND phone1 = {} OR phone2 = {}".format(name, phone, phone)
+        try:
+            self.c.execute(query)
+            rows = self.c.fetchone()
             return rows
         except sqlite3.Error:
             return 0

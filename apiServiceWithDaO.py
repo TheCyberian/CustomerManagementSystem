@@ -45,7 +45,7 @@ def addOrder():
         "custId": request.json['custId'],
         "itemNumber": request.json['itemNumber'],
         "amountPaid": request.json['amountPaid'],
-        "amountDue": request.json['amountDue'],
+        "weight": request.json['weight'],
         "totalAmount": request.json['totalAmount']
     }
 
@@ -95,6 +95,17 @@ def getItem(itemId):
 @app.route("/getCustomerOrder/<int:custId>")
 def getCustomerOrders(custId):
     rows = db_obj.getCustomerOrders(custId)
+    if not rows or rows == 0:
+        return abort(404)
+    else:
+        return jsonify(rows)
+
+
+@app.route("/getCustomerData")
+def getCustomerData():
+    name = request.args.get('name')
+    phone = request.args.get('phone')
+    rows = db_obj.getCustomerData(name, phone)
     if not rows or rows == 0:
         return abort(404)
     else:
